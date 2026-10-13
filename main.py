@@ -1,3 +1,14 @@
+import os
+
+# Copy Streamlit Cloud secrets into environment variables
+# (must run before the src modules are imported)
+try:
+    for _name in ("GOOGLE_API_KEY", "GEMINI_MODEL"):
+        if _name in st.secrets:
+            os.environ[_name] = str(st.secrets[_name])
+except Exception:
+    pass  # no secrets available (for example when running locally)
+
 from pathlib import Path
 
 from src.config import UPLOAD_DIR, VECTORSTORE_DIR
